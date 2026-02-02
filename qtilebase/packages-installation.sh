@@ -19,13 +19,31 @@ confirm() {
 
 safe_install() {
     local pkg="$1"
-    if sudo pacman -S --needed --noconfirm "$pkg"; then
+    local output
+
+    # Try pacman first
+    if output=$(sudo pacman -S --needed --noconfirm "$pkg" 2>&1); then
         print_success "Installed $pkg (official repo)"
-    elif yay -S --needed --noconfirm "$pkg"; then
+    # If pacman fails, try yay
+    elif output=$(yay -S --needed --noconfirm "$pkg" 2>&1); then
         print_success "Installed $pkg (AUR)"
     else
-        print_error "Failed to install $pkg"
-        echo "$(date '+%F %T') - $pkg" >> "$ERROR_LOG"
+        # Check for specific error reasons
+        if echo "$output" | grep -q "target not found"; then
+            print_error "Package not found: $pkg"
+            echo "$(date '+%F %T') - $pkg - NOT FOUND" >> "$ERROR_LOG"
+        elif echo "$output" | grep -qi "conflict"; then
+            print_error "Conflict installing: $pkg"
+            echo "$(date '+%F %T') - $pkg - CONFLICT" >> "$ERROR_LOG"
+        elif echo "$output" | grep -qi "failed to connect"; then
+            print_error "Network error installing: $pkg"
+            echo "$(date '+%F %T') - $pkg - NETWORK ERROR" >> "$ERROR_LOG"
+        else
+            print_error "Failed to install $pkg"
+            # Log the first line of the error as reason
+            local reason=$(echo "$output" | head -n 1)
+            echo "$(date '+%F %T') - $pkg - $reason" >> "$ERROR_LOG"
+        fi
     fi
 }
 
