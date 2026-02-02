@@ -1,0 +1,57 @@
+* {
+    bg: rgba(17, 24, 39, 0.95);
+    bg-alt: rgba(30, 41, 59, 0.8);
+    fg: #3b82f6;
+    fg-alt: #60a5fa;
+    border: rgba(59, 130, 246, 0.5);
+    border-alt: rgba(71, 85, 105, 0.3);
+    selected: rgba(59, 130, 246, 0.3);
+    selected-border: rgba(59, 130, 246, 0.8);
+    
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    width: 900px;
+    border-radius: 16px;
+    background-color: @bg;
+    border: 2px solid;
+    border-color: @border;
+}
+
+mainbox {
+    padding: 40px;
+    children: [listview];
+    background-color: transparent;
+}
+
+listview {
+    lines: 1;
+    columns: 5;
+    spacing: 30px;
+    background-color: transparent;
+    scrollbar: false;
+}
+
+element {
+    padding: 40px 30px;
+    border-radius: 12px;
+    background-color: @bg-alt;
+    border: 1px solid;
+    border-color: @border-alt;
+    cursor: pointer;
+}
+
+element selected {
+    background-color: @selected;
+    border-color: @selected-border;
+    text-color: @fg-alt;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    font: "Sans 28";
+    background-color: transparent;
+}
