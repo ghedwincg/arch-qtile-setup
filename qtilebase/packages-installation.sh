@@ -5,7 +5,9 @@
 ################################################################################
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
-ERROR_LOG="/tmp/install_errors.log"; > "$ERROR_LOG"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+ERROR_LOG="/tmp/install_errors_$TIMESTAMP.log"
+
 
 print_section() { echo -e "\n${GREEN}▶ $1${NC}\n"; }
 print_success() { echo -e "${GREEN}[✓]${NC} $1"; }
@@ -86,7 +88,7 @@ install_notifications() {
 
 install_file_management() {
     print_section "File Management"
-    local pkgs=(dolphin ark gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc gvfs-smb gvfs-nfs tumbler ffmpegthumbnailer xdg-utils shared-mime-info desktop-file-utils xdg-desktop-portal xdg-desktop-portal-gtk)
+    local pkgs=(dolphin chezmoi ark gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc gvfs-smb gvfs-nfs tumbler ffmpegthumbnailer xdg-utils shared-mime-info desktop-file-utils xdg-desktop-portal xdg-desktop-portal-gtk)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -124,7 +126,7 @@ install_audio() {
 
 install_power() {
     print_section "Power Management"
-    local pkgs=(xfce4-power-manager acpi acpid tlp powertop)
+    local pkgs=(acpi acpid tlp powertop)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Enable TLP?"; then sudo systemctl enable tlp; fi
 }
@@ -143,7 +145,7 @@ install_fonts_icons() {
 
 install_themes() {
     print_section "Themes"
-    local pkgs=(lxappearance gtk-engine-murine gtk-engines)
+    local pkgs=(lxappearance)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Install Tokyo Night GTK theme?"; then
         git clone https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git /tmp/Tokyo-Night-GTK-Theme
@@ -153,13 +155,13 @@ install_themes() {
 
 install_admin_tools() {
     print_section "Admin Tools"
-    local pkgs=(htop btop gnome-system-monitor gnome-disk-utility gparted baobab gnome-logs dconf-editor pamac-aur stacer)
+    local pkgs=(htop btop gnome-system-monitor gnome-disk-utility gparted baobab gnome-logs dconf-editor)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
 install_browsers() {
     print_section "Browsers"
-    local pkgs=(vivaldi brave-bin)
+    local pkgs=(firefox brave-bin)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -172,7 +174,7 @@ install_productivity() {
 install_development() {
     print_section "Development"
     if confirm "Install dev tools?"; then
-        local pkgs=(git base-devel vim neovim code docker docker-compose)
+        local pkgs=(git base-devel vim neovim code docker docker-compose podman)
         for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
         if confirm "Enable Docker?"; then sudo systemctl enable docker; sudo usermod -aG docker "$USER"; fi
     fi
@@ -180,7 +182,7 @@ install_development() {
 
 install_multimedia() {
     print_section "Multimedia"
-    local pkgs=(vlc mpv imagemagick feh nitrogen gimp inkscape)
+    local pkgs=(vlc mpv imagemagick feh gimp inkscape)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -192,13 +194,13 @@ install_cloud() {
 
 install_backup() {
     print_section "Backup"
-    local pkgs=(timeshift rsync deja-dup timeshift-autosnap)
+    local pkgs=(timeshift rsync deja-dup timeshift-autosnap borg)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
 install_utilities() {
     print_section "Utilities"
-    local pkgs=(unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf mousepad flameshot copyq scrot maim grimblast-git zathura zathura-pdf-mupdf inxi)
+    local pkgs=(unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf mousepad flameshot copyq zathura zathura-pdf-mupdf inxi)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
