@@ -55,7 +55,7 @@ safe_install() {
 
 install_core() {
     print_section "Core System"
-    local pkgs=(xorg-server xorg-xinit xorg-xrandr xorg-xsetroot qtile python-pip python-psutil python-dbus-next python-cairocffi python-requests archlinux-keyring pkgfile reflector)
+    local pkgs=(xorg-server xorg-xinit xorg-xrandr xorg-xsetroot xsettingsd qtile python-pip python-psutil python-dbus-next python-cairocffi python-requests archlinux-keyring pkgfile reflector)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -94,7 +94,7 @@ install_file_management() {
 
 install_security() {
     print_section "Security"
-    local pkgs=(ufw fail2ban polkit gnome-keyring lynis firejail)
+    local pkgs=(ufw fail2ban polkit gnome-keyring lynis firejail apparmor)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Enable firewall (UFW)?"; then
         sudo systemctl enable ufw
@@ -120,7 +120,7 @@ install_bluetooth() {
 
 install_audio() {
     print_section "Audio"
-    local pkgs=(pipewire pipewire-alsa pipewire-pulse pipewire-jack pavucontrol playerctl alsa-utils wireplumber)
+    local pkgs=(pipewire pipewire-alsa pipewire-pulse pipewire-jack pavucontrol playerctl alsa-utils wireplumber alsa-plugins)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -145,7 +145,7 @@ install_fonts_icons() {
 
 install_themes() {
     print_section "Themes"
-    local pkgs=(lxappearance gtk3 gtk4 gtkmm3 gtkmm4 gnome-themes-extra arc-gtk-theme materia-gtk-theme pywal)
+    local pkgs=(lxappearance gtk3 gtk4 gtkmm3 gtkmm4 gnome-themes-extra kvantum arc-gtk-theme materia-gtk-theme pywal)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Install Tokyo Night GTK theme?"; then
         git clone https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git /tmp/Tokyo-Night-GTK-Theme
@@ -200,7 +200,7 @@ install_backup() {
 
 install_utilities() {
     print_section "Utilities"
-    local pkgs=(unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf flameshot copyq zathura zathura-pdf-mupdf inxi)
+    local pkgs=(polkit xdg-utils unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf flameshot copyq zathura zathura-pdf-mupdf inxi xclip)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
