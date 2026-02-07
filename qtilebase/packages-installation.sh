@@ -55,7 +55,7 @@ safe_install() {
 
 install_core() {
     print_section "Core System"
-    local pkgs=(xorg-server xorg-xinit xorg-xrandr xorg-xsetroot qtile python-pip python-psutil python-dbus-next python-cairocffi archlinux-keyring pkgfile reflector)
+    local pkgs=(xorg-server xorg-xinit xorg-xrandr xorg-xsetroot qtile python-pip python-psutil python-dbus-next python-cairocffi python-requests archlinux-keyring pkgfile reflector)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
