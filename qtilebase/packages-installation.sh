@@ -62,7 +62,7 @@ install_core() {
 install_compositor() {
     print_section "Compositor"
     if confirm "Install picom with animations?"; then
-        safe_install picom-jonaburg-git || safe_install picom-ibhagwan-git || safe_install picom
+        safe_install picom-jonaburg-git || safe_install picom
     else
         safe_install picom
     fi
@@ -94,7 +94,7 @@ install_file_management() {
 
 install_security() {
     print_section "Security"
-    local pkgs=(ufw fail2ban polkit gnome-keyring rkhunter lynis arch-audit firejail)
+    local pkgs=(ufw fail2ban polkit gnome-keyring rkhunter lynis firejail)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Enable firewall (UFW)?"; then
         sudo systemctl enable ufw
@@ -106,7 +106,7 @@ install_security() {
 
 install_network() {
     print_section "Network"
-    local pkgs=(networkmanager network-manager-applet nm-connection-editor networkmanager-openvpn wireless_tools wpa_supplicant)
+    local pkgs=(networkmanager network-manager-applet nm-connection-editor networkmanager-openvpn wpa_supplicant)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     sudo systemctl enable NetworkManager
 }
@@ -145,7 +145,7 @@ install_fonts_icons() {
 
 install_themes() {
     print_section "Themes"
-    local pkgs=(lxappearance)
+    local pkgs=(lxappearance gtk3 gtk4 gtkmm3 gtkmm4 gnome-themes-extra arc-gtk-theme materia-gtk-theme pywal)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Install Tokyo Night GTK theme?"; then
         git clone https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git /tmp/Tokyo-Night-GTK-Theme
@@ -155,7 +155,7 @@ install_themes() {
 
 install_admin_tools() {
     print_section "Admin Tools"
-    local pkgs=(htop btop gnome-system-monitor gnome-disk-utility gparted baobab gnome-logs dconf-editor)
+    local pkgs=(btop gnome-system-monitor gnome-disk-utility gparted baobab gnome-logs dconf-editor)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
@@ -188,19 +188,19 @@ install_multimedia() {
 
 install_cloud() {
     print_section "Cloud"
-    if confirm "Install Nextcloud client?"; then safe_install nextcloud-client; fi
+    if confirm "Install Nextcloudmousepad client?"; then safe_install nextcloud-client; fi
     if confirm "Install Dropbox?"; then safe_install dropbox; fi
 }
 
 install_backup() {
     print_section "Backup"
-    local pkgs=(timeshift rsync deja-dup timeshift-autosnap borg)
+    local pkgs=(timeshift rsync timeshift-autosnap borg)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
 install_utilities() {
     print_section "Utilities"
-    local pkgs=(unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf mousepad flameshot copyq zathura zathura-pdf-mupdf inxi)
+    local pkgs=(unzip unrar p7zip wget curl tree fastfetch lolcat cmatrix bat exa fd ripgrep fzf flameshot copyq zathura zathura-pdf-mupdf inxi)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
 }
 
