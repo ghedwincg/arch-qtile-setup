@@ -1,0 +1,191 @@
+/*******************************************************************************
+ * ROFI ULTIMATE CONFIG - All-in-One Window
+ * Tailored for Arch + Qtile + Pipewire + Papirus + JetBrainsMono
+ ******************************************************************************/
+
+configuration {
+    /* Performance */
+    lazy-grab: false;
+    parse-hosts: true;
+    parse-known-hosts: true;
+    
+    /* Behavior */
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    display-drun: "  Apps";
+    display-run: "  Run";
+    display-window: " 﩯 Windows";
+    display-ssh: "  SSH";
+    display-filebrowser: "  Files";
+    display-combi: "  All";
+    
+    /* Modes - All in one window via combi */
+    modes: "combi,drun,run,window,ssh,filebrowser,emoji,calc";
+    combi-modes: "drun,run,window,filebrowser";
+    
+    /* Enhanced matching */
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    case-sensitive: false;
+    
+    /* Terminal for run commands */
+    terminal: "alacritty";
+    
+    /* SSH */
+    ssh-client: "ssh";
+    ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+    
+    /* File browser */
+    filebrowser {
+        directories-first: true;
+        sorting-method: "name";
+    }
+    
+    /* Keybindings */
+    kb-primary-paste: "Control+V,Shift+Insert";
+    kb-secondary-paste: "Control+v,Insert";
+    kb-clear-line: "Control+w";
+    kb-move-front: "Control+a";
+    kb-move-end: "Control+e";
+    kb-move-word-back: "Alt+b,Control+Left";
+    kb-move-word-forward: "Alt+f,Control+Right";
+    kb-move-char-back: "Left,Control+b";
+    kb-move-char-forward: "Right,Control+f";
+    kb-remove-word-back: "Control+Alt+h,Control+BackSpace";
+    kb-remove-word-forward: "Control+Alt+d";
+    kb-remove-char-forward: "Delete,Control+d";
+    kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";
+    kb-accept-entry: "Control+j,Control+m,Return,KP_Enter";
+    kb-accept-custom: "Control+Return";
+    kb-accept-alt: "Shift+Return";
+    kb-delete-entry: "Shift+Delete";
+    kb-mode-next: "Shift+Right,Control+Tab";
+    kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";
+    kb-row-left: "Control+Page_Up";
+    kb-row-right: "Control+Page_Down";
+    kb-row-up: "Up,Control+p,ISO_Left_Tab";
+    kb-row-down: "Down,Control+n";
+    kb-row-tab: "Tab";
+    kb-page-prev: "Page_Up";
+    kb-page-next: "Page_Down";
+    kb-row-first: "Home,KP_Home";
+    kb-row-last: "End,KP_End";
+    kb-row-select: "Control+space";
+    kb-screenshot: "Alt+s";
+    kb-ellipsize: "Alt+period";
+    kb-toggle-case-sensitivity: "grave,dead_grave";
+    kb-toggle-sort: "Alt+grave";
+    kb-cancel: "Escape,Control+g,Control+bracketleft";
+    kb-custom-1: "Alt+1";
+    kb-custom-2: "Alt+2";
+    kb-custom-3: "Alt+3";
+    kb-custom-4: "Alt+4";
+    kb-custom-5: "Alt+5";
+    kb-custom-6: "Alt+6";
+    kb-custom-7: "Alt+7";
+    kb-custom-8: "Alt+8";
+    kb-custom-9: "Alt+9";
+    kb-custom-10: "Alt+0";
+    kb-select-1: "Super+1";
+    kb-select-2: "Super+2";
+    kb-select-3: "Super+3";
+    kb-select-4: "Super+4";
+    kb-select-5: "Super+5";
+    kb-select-6: "Super+6";
+    kb-select-7: "Super+7";
+    kb-select-8: "Super+8";
+    kb-select-9: "Super+9";
+    kb-select-10: "Super+0";
+    
+    /* Window behavior */
+    window-format: "{w} {c} {t}";
+    click-to-exit: true;
+    
+    /* Timeouts */
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+}
+
+/*******************************************************************************
+ * THEME - Cyberpunk/Modern Dark (Qtile + Dunst + Pipewire aesthetic)
+ ******************************************************************************/
+
+* {
+    /* Colors */
+    bg0:     #1a1b26ff;   /* Qtile bar background */
+    bg1:     #24283bff;
+    bg2:     #44475aff;
+    bg3:     #6272a4ff;
+    fg0:     #f8f8f2ff;
+    fg1:     #e0e0e0ff;
+    fg2:     #9ca0b0ff;
+    
+    /* Accent colors */
+    accent:  #ff0000ff;   /* Your red accent */
+    accent-alt: #ff79c6ff;
+    urgent:  #ff5555ff;
+    active:  #50fa7bff;
+    
+    /* Transparency */
+    background-color: transparent;
+    text-color: @fg0;
+    
+    /* Fonts */
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    transparency: "real";
+    location: center;
+    width: 1200px;
+    height: 700px;
+    border: 2px solid;
+    border-radius: 12px;
+    border-color: @accent;
+    background-color: @bg0;
+}
+
+inputbar {
+    spacing: 15px;
+    margin: 0px 0px 20px 0px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: @bg1;
+    text-color: @fg0;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: @fg2;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+listview {
+    columns: 2;
+    lines: 10;
+    spacing: 8px;
+    scrollbar: true;
+    background-color: transparent;
+}
+
+element {
+    padding: 12px;
+    border-radius: 6px;
+    background-color: @bg1;
+    text-color: @fg0;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @bg0;
+}
+
+scrollbar {
+    handle-width: 8px;
+    handle-color: @accent;
+    border-radius: 4px;
+    background-color: @bg2;
+}

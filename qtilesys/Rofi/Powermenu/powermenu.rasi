@@ -1,0 +1,154 @@
+/**
+ * ROFI POWER MENU THEME
+ * Tailored for Arch + Qtile + JetBrainsMono + Papirus
+ * Modern dark theme with confirmation dialog
+ */
+
+* {
+    /* Base colors */
+    background:     #1a1b26ff;   /* Qtile bar background */
+    background-alt: #24283bff;
+    foreground:     #f8f8f2ff;
+    selected:       #44475aff;
+    active:         #ff0000ff;   /* Your red accent */
+    urgent:         #ff5555ff;
+    
+    /* Derived colors */
+    border-colour:               var(active);
+    handle-colour:               var(selected);
+    background-colour:           var(background);
+    foreground-colour:           var(foreground);
+    alternate-background:        var(background-alt);
+    normal-background:           var(background);
+    normal-foreground:           var(foreground);
+    urgent-background:           var(urgent);
+    urgent-foreground:           var(background);
+    active-background:           var(active);
+    active-foreground:           var(background);
+    selected-normal-background:  var(selected);
+    selected-normal-foreground:  var(foreground);
+    selected-urgent-background:  var(urgent);
+    selected-urgent-foreground:  var(background);
+    selected-active-background:  var(active);
+    selected-active-foreground:  var(background);
+    alternate-normal-background: var(background);
+    alternate-normal-foreground: var(foreground);
+    alternate-urgent-background: var(urgent);
+    alternate-urgent-foreground: var(background);
+    alternate-active-background: var(active);
+    alternate-active-foreground: var(background);
+}
+
+/*****----- Main Window -----*****/
+window {
+    transparency: "real";
+    location: center;
+    width: 550px;
+    border: 2px solid;
+    border-radius: 12px;
+    border-color: @border-colour;
+    background-color: @background-colour;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    spacing: 20px;
+    padding: 30px;
+    background-color: transparent;
+    children: [ "message", "listview" ];
+}
+
+/*****----- Message -----*****/
+message {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+textbox {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    markup: true;
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    spacing: 10px;
+    margin: 0px 0px 15px 0px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+    children: [ "textbox-prompt-colon", "prompt" ];
+}
+
+prompt {
+    text-color: @active;
+    font: "JetBrainsMono Nerd Font Bold 12";
+}
+
+textbox-prompt-colon {
+    str: "";
+    text-color: @active;
+    font: "JetBrainsMono Nerd Font 14";
+}
+
+/*****----- Listview -----*****/
+listview {
+    columns: 5;
+    lines: 1;
+    spacing: 15px;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+element {
+    padding: 30px 10px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+element selected.normal {
+    background-color: @active;
+    text-color: @background;
+}
+
+element-text {
+    text-color: inherit;
+    font: "JetBrainsMono Nerd Font 28";
+    horizontal-align: 0.5;
+}
+
+/*****----- Mode Switcher (confirmation buttons) -----*****/
+mode-switcher {
+    spacing: 15px;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+button {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+    font: "JetBrainsMono Nerd Font 11";
+}
+
+button selected {
+    background-color: @active;
+    text-color: @background;
+}
+
+/*****----- Error Message -----*****/
+error-message {
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 8px;
+    border-color: @urgent;
+    background-color: @background;
+    text-color: @urgent;
+}

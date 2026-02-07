@@ -1,0 +1,108 @@
+/*******************************************************************************
+ * ROFI MINIMAL THEME - Tailored for Arch + Qtile + Papirus + JetBrainsMono
+ * Copy to ~/.config/rofi/themes/minimal.rasi
+ * Use with: rofi -show combi -theme ~/.config/rofi/themes/minimal.rasi
+ ******************************************************************************/
+
+configuration {
+    modi: "combi,drun,run,window,filebrowser,ssh,emoji,calc";
+    combi-modi: "drun,run,window,filebrowser";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+}
+
+* {
+    /* Minimal Dark Scheme */
+    bg0:     #1a1b26ff;   /* Qtile bar background */
+    bg1:     #24283bff;
+    bg2:     #2e3440ff;
+    fg0:     #f8f8f2ff;
+    fg1:     #d0d0d0ff;
+    fg2:     #808080ff;
+    accent:  #ff0000ff;   /* Your red accent */
+
+    background-color: transparent;
+    text-color: @fg0;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    transparency: "real";
+    location: center;
+    width: 900px;
+    height: 600px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: @fg2;
+    background-color: @bg0;
+}
+
+mainbox {
+    padding: 15px;
+    children: [ "inputbar", "mode-switcher", "listview" ];
+}
+
+inputbar {
+    spacing: 10px;
+    margin: 0px 0px 15px 0px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: @bg1;
+    children: [ "prompt", "entry", "num-filtered-rows", "textbox-num-sep", "num-rows" ];
+}
+
+prompt {
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 12";
+}
+
+entry {
+    placeholder: "Type to search...";
+    placeholder-color: @fg2;
+}
+
+mode-switcher {
+    spacing: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: @bg1;
+    text-color: @fg1;
+    border-radius: 4px;
+}
+
+button selected {
+    background-color: @fg0;
+    text-color: @bg0;
+}
+
+listview {
+    columns: 1;
+    lines: 12;
+    spacing: 3px;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+element selected {
+    background-color: @bg2;
+    text-color: @accent;
+}
+
+element-icon {
+    size: 24px;
+}
+
+element-text {
+    highlight: bold underline;
+}

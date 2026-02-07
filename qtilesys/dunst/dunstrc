@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# ~/.config/dunst/scripts/dashboard.sh
+# System Dashboard Notification - tailored for your setup
+
+# Battery (only if BAT0 exists)
+if [[ -d /sys/class/power_supply/BAT0 ]]; then
+    capacity=$(< /sys/class/power_supply/BAT0/capacity)
+    status=$(< /sys/class/power_supply/BAT0/status)
+    battery="🔋 <b>Battery</b>: $capacity% ($status)"
+else
+    battery="🔋 <b>Battery</b>: N/A"
+fi
+
+# Updates (using reflector/pacman)
+updates=$(checkupdates 2>/dev/null | wc -l)
+updates_msg="📦 <b>Updates</b>: $updates available"
+
+# VPN (NetworkManager is installed)
+if nmcli connection show --active | grep -qi vpn; then
+    vpn="🔒 <b>VPN</b>: Active"
+else
+    vpn="⚠️ <b>VPN</b>: Disconnected"
+fi
+
+# Disk usage
+usage=$(df -h / | awk 'NR==2 {print $5}')
+disk="💽 <b>Disk</b>: $usage used"
+
+# CPU & Memory
+cpu=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}')
+cpu_msg="🔥 <b>CPU</b>: ${cpu%.*}%"
+mem=$(free | awk '/Mem:/ {print $3/$2 * 100.0}')
+mem_msg="💡 <b>Memory</b>: ${mem%.*}%"
+
+# Network speed (detect active iface dynamically)
+iface=$(ip route | awk '/default/ {print $5; exit}')
+if [[ -n "$iface" && -d "/sys/class/net/$iface" ]]; then
+    rx1=$(< /sys/class/net/$iface/statistics/rx_bytes)
+    tx1=$(< /sys/class/net/$iface/statistics/tx_bytes)
+    sleep 1
+    rx2=$(< /sys/class/net/$iface/statistics/rx_bytes)
+    tx2=$(< /sys/class/net/$iface/statistics/tx_bytes)
+    rx_rate=$(( (rx2 - rx1) / 1024 ))
+    tx_rate=$(( (tx2 - tx1) / 1024 ))
+    network="🌐 <b>Network</b>: ↓ ${rx_rate}KB/s ↑ ${tx_rate}KB/s"
+else
+    network="🌐 <b>Network</b>: N/A"
+fi
+
+# Temperature (lm-sensors installed)
+temp=$(sensors 2>/dev/null | grep -m 1 'Package id 0:' | awk '{print $4}')
+temp_msg="🌡️ <b>Temp</b>: ${temp:-N/A}"
+
+# Final summary
+summary="$battery\n$updates_msg\n$vpn\n$disk\n$cpu_msg\n$mem_msg\n$network\n$temp_msg"
+
+# Urgency rules
+urgency="normal"
+if [[ "$status" == "Discharging" && "$capacity" -le 20 ]]; then
+    urgency="critical"
+elif [[ "$vpn" == *"Disconnected"* ]]; then
+    urgency="critical"
+fi
+
+notify-send -u "$urgency" "🖥️ <b>System Dashboard</b>" "$summary"

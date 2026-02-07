@@ -1,0 +1,44 @@
+/**
+ * Sidebar Theme for Notifications
+ * Matches Qtile bar colors + red accent
+ */
+configuration {
+    show-icons: true;
+}
+
+window {
+    width: 400px;
+    height: 100%;
+    anchor: east;
+    location: east;
+    border: 0px;
+}
+
+mainbox {
+    spacing: 10px;
+    children: [ inputbar, listview ];
+    background-color: #1a1b26; /* Qtile bar background */
+}
+
+listview {
+    spacing: 5px;
+    scrollbar: false;
+    padding: 10px 0px 0px;
+}
+
+element {
+    padding: 10px;
+    border-radius: 5px;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+element selected {
+    background-color: #44475a;
+    text-color: #FF0000; /* red accent */
+}
+
+inputbar {
+    padding: 20px;
+    background-color: #24283b;
+    font: "JetBrainsMono Nerd Font 12";
+}

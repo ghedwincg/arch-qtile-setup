@@ -1,0 +1,366 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║     ARCH LINUX + QTILE - QUICK MAINTENANCE REFERENCE         ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────┐
+│  🚨 EMERGENCY COMMANDS (USE FIRST!)                           │
+└───────────────────────────────────────────────────────────────┘
+
+Update System:
+  sudo pacman -Syu
+
+Fix Broken Packages:
+  sudo pacman -Syy
+  sudo pacman -S $(pacman -Qnq)
+
+Unlock Pacman:
+  sudo rm /var/lib/pacman/db.lck
+
+Fix Keyring Issues:
+  sudo pacman -Sy archlinux-keyring
+  sudo pacman-key --refresh-keys
+
+Check System Errors:
+  journalctl -p 3 -xn 20
+  systemctl --failed
+
+┌───────────────────────────────────────────────────────────────┐
+│  🧹 DAILY CLEANUP (5 minutes)                                 │
+└───────────────────────────────────────────────────────────────┘
+
+Clear User Cache:
+  rm -rf ~/.cache/*
+
+Empty Trash:
+  rm -rf ~/.local/share/Trash/*
+
+Check Disk Space:
+  df -h
+
+Check Failed Services:
+  systemctl --failed
+
+┌───────────────────────────────────────────────────────────────┐
+│  📅 WEEKLY MAINTENANCE (30 minutes)                           │
+└───────────────────────────────────────────────────────────────┘
+
+1. SYSTEM UPDATE
+   sudo pacman -Syu
+   yay -Syu  # or paru -Syu
+
+2. CLEAN PACKAGE CACHE
+   sudo paccache -rk3      # Keep 3 versions
+   sudo paccache -ruk0     # Remove uninstalled
+
+3. REMOVE ORPHANS
+   sudo pacman -Rns $(pacman -Qtdq)
+
+4. CLEAN LOGS
+   sudo journalctl --vacuum-time=3d
+   sudo journalctl --vacuum-size=100M
+
+5. CHECK HEALTH
+   df -h
+   free -h
+   systemctl --failed
+
+┌───────────────────────────────────────────────────────────────┐
+│  🗓️  MONTHLY TASKS (1-2 hours)                                │
+└───────────────────────────────────────────────────────────────┘
+
+Run Cleanup Script:
+  ./arch-cleanup.sh
+  (Select option 1: Full System Cleanup)
+
+Optimize Pacman:
+  sudo pacman-optimize
+
+Update Mirrors:
+  sudo reflector --latest 20 --sort rate \
+    --save /etc/pacman.d/mirrorlist
+  sudo pacman -Syy
+
+Security Audit:
+  sudo lynis audit system
+  sudo rkhunter --check
+
+Backup Configs:
+  cp -r ~/.config/qtile ~/backups/qtile-$(date +%Y%m%d)
+  cp -r ~/.config/rofi ~/backups/rofi-$(date +%Y%m%d)
+
+┌───────────────────────────────────────────────────────────────┐
+│  📦 PACKAGE MANAGEMENT                                        │
+└───────────────────────────────────────────────────────────────┘
+
+Search Package:
+  pacman -Ss <package>
+  yay -Ss <package>
+
+Install Package:
+  sudo pacman -S <package>
+  yay -S <package>
+
+Remove Package:
+  sudo pacman -Rns <package>
+
+List Installed:
+  pacman -Q              # All packages
+  pacman -Qe             # Explicitly installed
+  pacman -Qtd            # Orphaned packages
+
+Package Info:
+  pacman -Qi <package>   # Installed
+  pacman -Si <package>   # Repository
+
+Find Package File:
+  pacman -Ql <package>
+  pacman -Qo /path/file
+
+Check Integrity:
+  sudo pacman -Qk
+  sudo pacman -Dk
+
+┌───────────────────────────────────────────────────────────────┐
+│  🔍 SYSTEM MONITORING                                         │
+└───────────────────────────────────────────────────────────────┘
+
+Disk Usage:
+  df -h                  # Overview
+  du -sh /*              # By directory
+  ncdu /                 # Interactive
+
+Memory Usage:
+  free -h
+  htop
+  ps aux --sort=-%mem | head
+
+CPU Usage:
+  htop
+  top
+  ps aux --sort=-%cpu | head
+
+Network:
+  ip a                   # Interfaces
+  ss -tulpn              # Listening ports
+  vnstat -d              # Traffic stats
+
+Processes:
+  ps aux                 # All processes
+  pgrep <name>           # Find by name
+  pkill <name>           # Kill by name
+
+┌───────────────────────────────────────────────────────────────┐
+│  📋 SYSTEMD COMMANDS                                          │
+└───────────────────────────────────────────────────────────────┘
+
+Service Management:
+  sudo systemctl start <service>
+  sudo systemctl stop <service>
+  sudo systemctl restart <service>
+  sudo systemctl enable <service>
+  sudo systemctl disable <service>
+  sudo systemctl status <service>
+
+System State:
+  systemctl --failed             # Failed services
+  systemctl list-units           # All units
+  systemctl list-unit-files      # All unit files
+
+Boot Analysis:
+  systemd-analyze                # Boot time
+  systemd-analyze blame          # Slow services
+  systemd-analyze critical-chain # Boot chain
+
+Logs:
+  journalctl -xe                 # Recent with explanation
+  journalctl -u <service>        # Specific service
+  journalctl -p 3                # Errors only
+  journalctl -f                  # Follow (tail)
+  journalctl --since today       # Today's logs
+  journalctl --since "1 hour ago"
+
+┌───────────────────────────────────────────────────────────────┐
+│  🛡️  SECURITY COMMANDS                                        │
+└───────────────────────────────────────────────────────────────┘
+
+Firewall (UFW):
+  sudo ufw status
+  sudo ufw enable
+  sudo ufw disable
+  sudo ufw allow <port>
+  sudo ufw deny <port>
+  sudo ufw delete <rule>
+
+Check Open Ports:
+  sudo ss -tulpn
+  sudo netstat -tulpn
+  sudo lsof -i
+
+Find SUID Files:
+  find / -perm -4000 -type f 2>/dev/null
+
+Check Failed Logins:
+  sudo journalctl _SYSTEMD_UNIT=sshd.service | grep "Failed"
+  sudo lastb
+
+Security Scan:
+  sudo lynis audit system
+  sudo rkhunter --check
+  sudo clamscan -r /home
+
+┌───────────────────────────────────────────────────────────────┐
+│  🔧 QTILE SPECIFIC                                            │
+└───────────────────────────────────────────────────────────────┘
+
+Reload Config:
+  Super + Ctrl + R
+
+Check Config Syntax:
+  python -m py_compile ~/.config/qtile/config.py
+
+View Logs:
+  cat ~/.local/share/qtile/qtile.log
+  journalctl -u qtile
+
+Restart Qtile:
+  Super + Ctrl + Q (logout)
+  Then log back in
+
+Clean Qtile Cache:
+  rm -rf ~/.cache/qtile/
+
+Run Optimization:
+  ./qtile-cleanup.sh
+
+┌───────────────────────────────────────────────────────────────┐
+│  💾 BACKUP & RECOVERY                                         │
+└───────────────────────────────────────────────────────────────┘
+
+Backup Configs:
+  tar -czf config-backup.tar.gz ~/.config/
+
+Backup Package List:
+  pacman -Qqe > pkglist.txt      # Explicit
+  pacman -Qqm > pkglist-aur.txt  # AUR only
+
+Restore Packages:
+  sudo pacman -S --needed - < pkglist.txt
+  yay -S --needed - < pkglist-aur.txt
+
+Backup System:
+  sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / /mnt/backup/
+
+┌───────────────────────────────────────────────────────────────┐
+│  🚑 RECOVERY MODE                                             │
+└───────────────────────────────────────────────────────────────┘
+
+Boot from Live USB:
+  1. Boot Arch live USB
+  2. sudo mount /dev/sda2 /mnt
+  3. sudo mount /dev/sda1 /mnt/boot
+  4. sudo arch-chroot /mnt
+  5. Fix system
+  6. exit && reboot
+
+Fix Bootloader:
+  sudo grub-install /dev/sda
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+Rebuild initramfs:
+  sudo mkinitcpio -P
+
+┌───────────────────────────────────────────────────────────────┐
+│  ⚡ PERFORMANCE TIPS                                          │
+└───────────────────────────────────────────────────────────────┘
+
+Enable Parallel Downloads:
+  Edit /etc/pacman.conf
+  ParallelDownloads = 5
+
+Use Fastest Mirrors:
+  sudo reflector --latest 20 --sort rate \
+    --save /etc/pacman.d/mirrorlist
+
+Reduce Swappiness (if 8GB+ RAM):
+  echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/99-swappiness.conf
+  sudo sysctl vm.swappiness=10
+
+Enable TRIM (SSD):
+  sudo systemctl enable fstrim.timer
+
+Clear Cache:
+  sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+
+Disable Unused Services:
+  sudo systemctl disable <service>
+
+┌───────────────────────────────────────────────────────────────┐
+│  📊 DISK MANAGEMENT                                           │
+└───────────────────────────────────────────────────────────────┘
+
+Check Disk Space:
+  df -h
+  du -sh ~/*
+  ncdu /
+
+Find Large Files:
+  sudo find / -type f -size +100M 2>/dev/null
+  sudo du -hsx /* | sort -rh | head -20
+
+Find Old Files:
+  find ~ -type f -mtime +365  # Older than 1 year
+
+Clean Package Cache Size:
+  du -sh /var/cache/pacman/pkg/
+
+Clean Logs Size:
+  du -sh /var/log/
+
+┌───────────────────────────────────────────────────────────────┐
+│  ⚙️  CONFIGURATION FILES                                      │
+└───────────────────────────────────────────────────────────────┘
+
+Important Configs:
+  ~/.config/qtile/config.py       # Qtile
+  ~/.config/qtile/autostart.sh    # Autostart
+  /etc/pacman.conf                # Pacman
+  /etc/fstab                      # Filesystems
+  /etc/mkinitcpio.conf            # initramfs
+  /boot/grub/grub.cfg             # Bootloader
+  ~/.bashrc or ~/.zshrc           # Shell
+
+Edit Configs:
+  nano <file>
+  vim <file>
+
+Backup Before Edit:
+  sudo cp /etc/file /etc/file.backup
+
+┌───────────────────────────────────────────────────────────────┐
+│  📚 USEFUL ALIASES (Add to ~/.bashrc)                         │
+└───────────────────────────────────────────────────────────────┘
+
+alias update='sudo pacman -Syu'
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq) && sudo paccache -rk3'
+alias mirrors='sudo reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist && sudo pacman -Syy'
+alias errors='journalctl -p 3 -xn 20'
+alias services='systemctl --failed'
+alias orphans='pacman -Qtdq'
+alias pkglist='pacman -Qqe > ~/pkglist-$(date +%Y%m%d).txt'
+
+┌───────────────────────────────────────────────────────────────┐
+│  ⚠️  BEFORE MAJOR UPDATES                                     │
+└───────────────────────────────────────────────────────────────┘
+
+1. Read Arch News: https://archlinux.org/news/
+2. Backup configs: tar -czf ~/backup-$(date +%Y%m%d).tar.gz ~/.config
+3. Save package list: pacman -Qqe > ~/pkglist.txt
+4. Have live USB ready
+5. Check free disk space: df -h
+6. Close important applications
+
+└───────────────────────────────────────────────────────────────┘
+              Keep Your System: Reliable • Secure • Stable
+└───────────────────────────────────────────────────────────────┘

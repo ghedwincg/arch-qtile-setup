@@ -1,0 +1,95 @@
+/**
+ * ROFI POWER MENU CONFIRMATION THEME
+ * Tailored for Arch + Qtile + JetBrainsMono + Papirus
+ * Used for "Are you sure?" dialogs
+ */
+
+* {
+    /* Base colors */
+    background:     #1a1b26ff;   /* Qtile bar background */
+    background-alt: #24283bff;
+    foreground:     #f8f8f2ff;
+    selected:       #44475aff;
+    active:         #ff0000ff;   /* Your red accent */
+    urgent:         #ff5555ff;
+    confirm:        #50fa7bff;   /* Green for confirmation */
+
+    border-colour:     var(active);
+    background-colour: var(background);
+    foreground-colour: var(foreground);
+}
+
+/*****----- Main Window -----*****/
+window {
+    transparency: "real";
+    location: center;
+    width: 500px;
+    border: 2px solid;
+    border-radius: 12px;
+    border-color: @border-colour;
+    background-color: @background-colour;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    spacing: 25px;
+    padding: 35px;
+    background-color: transparent;
+    children: [ "message", "listview" ];
+}
+
+/*****----- Message -----*****/
+message {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+textbox {
+    background-color: transparent;
+    text-color: @foreground;
+    font: "JetBrainsMono Nerd Font 12";
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
+
+/*****----- Listview -----*****/
+listview {
+    columns: 2;
+    lines: 1;
+    spacing: 15px;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+/*****----- Elements -----*****/
+element {
+    padding: 20px 0px;
+    border-radius: 8px;
+    background-color: @background-alt;
+    text-color: @foreground;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+element selected.normal {
+    background-color: @active;
+    text-color: @background;
+}
+
+element-text {
+    text-color: inherit;
+    font: "JetBrainsMono Nerd Font Bold 12";
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
+
+/*****----- Inputbar (disabled for confirmation) -----*****/
+inputbar {
+    enabled: false;
+}
