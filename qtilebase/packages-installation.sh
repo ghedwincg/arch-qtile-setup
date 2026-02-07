@@ -94,7 +94,7 @@ install_file_management() {
 
 install_security() {
     print_section "Security"
-    local pkgs=(ufw fail2ban polkit gnome-keyring rkhunter lynis firejail)
+    local pkgs=(ufw fail2ban polkit gnome-keyring lynis firejail)
     for pkg in "${pkgs[@]}"; do safe_install "$pkg"; done
     if confirm "Enable firewall (UFW)?"; then
         sudo systemctl enable ufw
