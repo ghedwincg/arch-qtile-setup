@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Visual Studio Code
-Comment=Code Editing. Redefined.
-Exec=code %f
-Icon=code
-Type=Application
-Terminal=false
-Categories=Development;IDE;
-MimeType=text/plain;
