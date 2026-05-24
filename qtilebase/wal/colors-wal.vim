@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/user/Pictures/Wallpapers/pexels-asadphoto-1450360.jpg"
+let background = "#1e2b12"
+let foreground = "#dee9f1"
+let cursor     = "#dee9f1"
+
+" Colors
+let color0  = "#1e2b12"
+let color1  = "#5CADFA"
+let color2  = "#44C6CC"
+let color3  = "#68E0E8"
+let color4  = "#A5C3A9"
+let color5  = "#92B9FB"
+let color6  = "#9FE2EB"
+let color7  = "#dee9f1"
+let color8  = "#9ba3a8"
+let color9  = "#5CADFA"
+let color10 = "#44C6CC"
+let color11 = "#68E0E8"
+let color12 = "#A5C3A9"
+let color13 = "#92B9FB"
+let color14 = "#9FE2EB"
+let color15 = "#dee9f1"

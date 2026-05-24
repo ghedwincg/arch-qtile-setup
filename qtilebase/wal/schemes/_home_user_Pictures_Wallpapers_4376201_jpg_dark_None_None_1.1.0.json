@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/user/Pictures/Wallpapers/4376201.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#1a0e16",
+        "foreground": "#edcdc8",
+        "cursor": "#edcdc8"
+    },
+    "colors": {
+        "color0": "#1a0e16",
+        "color1": "#CE4863",
+        "color2": "#CE6075",
+        "color3": "#D67588",
+        "color4": "#E88E9C",
+        "color5": "#E89F9D",
+        "color6": "#EB9AA3",
+        "color7": "#edcdc8",
+        "color8": "#a58f8c",
+        "color9": "#CE4863",
+        "color10": "#CE6075",
+        "color11": "#D67588",
+        "color12": "#E88E9C",
+        "color13": "#E89F9D",
+        "color14": "#EB9AA3",
+        "color15": "#edcdc8"
+    }
+}

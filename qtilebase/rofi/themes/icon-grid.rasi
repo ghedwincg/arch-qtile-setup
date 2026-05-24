@@ -1,0 +1,60 @@
+configuration {
+    modi: "combi";
+    combi-modi: "apps:run:files:ssh:scripts:power";
+    show-icons: true;
+    sidebar-mode: true;
+}
+
+* {
+    font: "FiraCode Nerd Font 12";
+    icon-theme: "Papirus";
+    spacing: 10;
+    padding: 5;
+}
+
+window {
+    location: south;
+    anchor: south;
+    width: 100%;
+}
+
+mainbox {
+    children: [inputbar, listview, sidebar];
+    orientation: vertical;
+}
+
+inputbar {
+    children: [prompt, entry];
+    spacing: 10;
+    padding: 10;
+}
+
+listview {
+    columns: 5;   /* 5 columns across */
+    lines: 3;     /* 3 rows down */
+    spacing: 20;
+    cycle: false;
+    dynamic: true;
+}
+
+element {
+    orientation: vertical;   /* icon above, text below */
+    spacing: 2;              /* tighter spacing */
+    padding: 8;
+}
+
+element-icon {
+    size: 48;
+}
+
+element-text {
+    font: "FiraCode Nerd Font 10";
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+sidebar {
+    orientation: horizontal;
+    spacing: 15;
+    padding: 10;
+}

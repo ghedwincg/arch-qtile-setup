@@ -1,0 +1,23 @@
+configuration {
+    modi: "drun,run,filebrowser,settings:~/.config/rofi/settings/settings-mode.sh";
+    show-icons: true;
+
+    sidebar-mode: true; 
+    display-drun: "󰀻 ";          /* Arch glyph */
+    display-run: " ";           /* Terminal glyph */
+    display-filebrowser: " ";   /* Folder glyph */
+    display-settings: " ";           /* Settings glyph */
+
+    me-accept-entry: "MousePrimary";
+    me-select-entry: "";
+    hover-select: true;
+
+    terminal: "alacritty";
+    run-shell-command: "{terminal} -e bash -c '{cmd}; echo; echo Press Enter to close...; read'";
+
+    kb-row-tab: "";
+    kb-element-next: "";
+    kb-mode-next: "Tab";
+    kb-row-up: "Up,Control+p";
+    kb-row-down: "Down,Control+n";
+}

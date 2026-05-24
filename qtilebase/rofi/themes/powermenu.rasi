@@ -1,0 +1,69 @@
+/* Import the pywal generated rasi file */
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+
+* {
+    background-color: transparent;
+    text-color: @foreground;
+    font: "JetBrainsMono Nerd Font 14";
+}
+
+window {
+    width: 650px;
+    border: 2px solid;
+    /* Using @foreground as a fallback for the border */
+    border-color: @foreground; 
+    border-radius: 12px;
+    background-color: @background;
+}
+
+mainbox {
+    padding: 30px;
+    children: [ message, listview ]; 
+}
+
+/* --- Message Area (Uptime/Confirm) --- */
+message {
+    padding: 15px;
+    background-color: @background;
+    border: 1px solid;
+    border-color: @foreground;
+    border-radius: 8px;
+    margin: 0px 0px 20px 0px;
+}
+
+textbox {
+    horizontal-align: 0.5;
+    text-color: @foreground;
+}
+
+/* --- Icons --- */
+listview {
+    spacing: 15px;
+    lines: 1;
+    columns: 5;
+    fixed-height: true;
+    cycle: true;
+}
+
+element {
+    padding: 25px 0px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Logic for Single Click / Hover highlight */
+element selected {
+    background-color: @selected-active-background;
+    text-color: @background;
+}
+
+element-text {
+    font: "JetBrainsMono Nerd Font 28";
+    horizontal-align: 0.5;
+    cursor: pointer;
+}
+
+/* Hide the search bar entirely */
+inputbar {
+    enabled: false;
+}

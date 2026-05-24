@@ -1,0 +1,21 @@
+set $wallpaper /home/user/Pictures/Wallpapers/pexels-asadphoto-1450360.jpg
+
+set $background #1e2b12
+set $foreground #dee9f1
+
+set $color0 #1e2b12
+set $color1 #5CADFA
+set $color2 #44C6CC
+set $color3 #68E0E8
+set $color4 #A5C3A9
+set $color5 #92B9FB
+set $color6 #9FE2EB
+set $color7 #dee9f1
+set $color8 #9ba3a8
+set $color9 #5CADFA
+set $color10 #44C6CC
+set $color11 #68E0E8
+set $color12 #A5C3A9
+set $color13 #92B9FB
+set $color14 #9FE2EB
+set $color15 #dee9f1
